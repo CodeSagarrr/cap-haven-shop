@@ -13,6 +13,8 @@ import { ProductDetail } from "./pages/ProductDetail";
 import { Cart } from "./pages/Cart";
 import { Checkout } from "./pages/Checkout";
 import { Auth } from "./pages/Auth";
+import { About } from "./pages/About";
+import { Contact } from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import { About } from "./pages/About";
 import { Contact } from "./pages/Contact";

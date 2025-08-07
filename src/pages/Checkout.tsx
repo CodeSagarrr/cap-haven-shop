@@ -296,6 +296,9 @@ export const Checkout: React.FC = () => {
                       />
                       <div>
                         <p className="font-medium text-sm">{item.title}</p>
+                        {item.customization?.nickname && (
+                          <p className="text-xs text-primary">Custom: "{item.customization.nickname}"</p>
+                        )}
                         <p className="text-sm text-muted-foreground">Qty: {item.quantity}</p>
                       </div>
                     </div>

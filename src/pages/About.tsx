@@ -9,7 +9,11 @@ export const About: React.FC = () => {
       <section className="py-20 bg-gradient-to-br from-primary/10 to-secondary/10">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-6xl font-bold text-primary mb-6">
+<<<<<<< HEAD
             DUO CLOTHING HUB
+=======
+            About CAPSTORE
+>>>>>>> 0d27e3f75bca1fc71d809608cb71772753d7a113
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
             Your premier destination for premium quality caps. We believe that the right cap doesn't just protect you from the sun – it expresses your personality and style.
@@ -24,7 +28,11 @@ export const About: React.FC = () => {
             <div>
               <h2 className="text-3xl font-bold text-primary mb-6">Our Story</h2>
               <p className="text-muted-foreground mb-4">
+<<<<<<< HEAD
                 Founded in 2020, DUO CLOTHING HUB emerged from a simple passion: creating high-quality caps that combine comfort, style, and durability. What started as a small project has grown into a trusted brand that serves customers worldwide.
+=======
+                Founded in 2020, CAPSTORE emerged from a simple passion: creating high-quality caps that combine comfort, style, and durability. What started as a small project has grown into a trusted brand that serves customers worldwide.
+>>>>>>> 0d27e3f75bca1fc71d809608cb71772753d7a113
               </p>
               <p className="text-muted-foreground mb-4">
                 We understand that a cap is more than just an accessory – it's a statement. Whether you're looking for a classic baseball cap, a trendy snapback, or a custom design with your nickname, we've got you covered.
@@ -101,7 +109,11 @@ export const About: React.FC = () => {
           <Card className="max-w-2xl mx-auto">
             <CardContent className="p-8">
               <p className="text-muted-foreground text-lg">
+<<<<<<< HEAD
                 Our team consists of experienced designers, quality specialists, and customer service professionals who work together to ensure every DUO CLOTHING HUB experience is exceptional.
+=======
+                Our team consists of experienced designers, quality specialists, and customer service professionals who work together to ensure every CAPSTORE experience is exceptional.
+>>>>>>> 0d27e3f75bca1fc71d809608cb71772753d7a113
               </p>
             </CardContent>
           </Card>
