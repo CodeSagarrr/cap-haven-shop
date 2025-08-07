@@ -9,7 +9,7 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
-            <div className="text-2xl font-bold text-primary">CAPSTORE</div>
+            <div className="text-2xl font-bold text-primary">DUO CLOTHING HUB</div>
             <p className="text-sm text-muted-foreground">
               Premium quality caps for the modern generation. Express your style with our curated collection.
             </p>

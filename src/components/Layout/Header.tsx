@@ -40,7 +40,7 @@ export const Header: React.FC = () => {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <div className="text-2xl font-bold text-primary">CAPSTORE</div>
+            <div className="text-2xl font-bold text-primary">DUO CLOTHING HUB</div>
           </Link>
 
           {/* Desktop Navigation */}
