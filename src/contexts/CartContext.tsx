@@ -6,6 +6,9 @@ export interface CartItem {
   price: number;
   image_url: string;
   quantity: number;
+  customization?: {
+    nickname?: string;
+  };
 }
 
 interface CartState {

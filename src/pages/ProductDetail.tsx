@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { useCart } from '@/contexts/CartContext';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
@@ -26,6 +28,7 @@ export const ProductDetail: React.FC = () => {
   const [product, setProduct] = useState<Product | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [customNickname, setCustomNickname] = useState('');
   const { addItem } = useCart();
   const { toast } = useToast();
 
@@ -62,12 +65,13 @@ export const ProductDetail: React.FC = () => {
         title: product.title,
         price: product.price,
         image_url: product.image_url,
+        customization: customNickname ? { nickname: customNickname } : undefined,
       });
     }
 
     toast({
       title: "Added to cart",
-      description: `${quantity} ${product.title}(s) added to your cart.`,
+      description: `${quantity} ${product.title}(s) ${customNickname ? `with "${customNickname}" ` : ''}added to your cart.`,
     });
   };
 
@@ -146,6 +150,26 @@ export const ProductDetail: React.FC = () => {
             <h3 className="text-lg font-semibold mb-2">Description</h3>
             <p className="text-muted-foreground leading-relaxed">
               {product.description}
+            </p>
+          </div>
+
+          <Separator />
+
+          {/* Cap Customization */}
+          <div className="space-y-3">
+            <Label htmlFor="nickname" className="text-sm font-medium">
+              Cap Customization (Optional)
+            </Label>
+            <Input
+              id="nickname"
+              placeholder="Enter nickname to print on cap"
+              value={customNickname}
+              onChange={(e) => setCustomNickname(e.target.value)}
+              maxLength={15}
+              className="w-full"
+            />
+            <p className="text-xs text-muted-foreground">
+              Leave blank if you don't want custom printing. Max 15 characters.
             </p>
           </div>
 
