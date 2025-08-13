@@ -16,8 +16,6 @@ import { Auth } from "./pages/Auth";
 import { About } from "./pages/About";
 import { Contact } from "./pages/Contact";
 import NotFound from "./pages/NotFound";
-import { About } from "./pages/About";
-import { Contact } from "./pages/Contact";
 
 const queryClient = new QueryClient();
 
