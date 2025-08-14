@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ShoppingCart, User, Search, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useCart } from '@/contexts/CartContext';
 import { useAuth } from '@/contexts/AuthContext';
+import { supabase } from '@/integrations/supabase/client';
 import { 
   DropdownMenu,
   DropdownMenuContent,
@@ -21,6 +22,35 @@ export const Header: React.FC = () => {
   const { state } = useCart();
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
+  const [userName, setUserName] = useState<string>('');
+
+  useEffect(() => {
+    const fetchUserName = async () => {
+      if (user) {
+        try {
+          const { data } = await supabase
+            .from('profiles')
+            .select('full_name')
+            .eq('id', user.id)
+            .maybeSingle();
+          
+          if (data?.full_name) {
+            setUserName(data.full_name);
+          } else {
+            // Fallback to email if no full name
+            setUserName(user.email?.split('@')[0] || '');
+          }
+        } catch (error) {
+          console.error('Error fetching user name:', error);
+          setUserName(user.email?.split('@')[0] || '');
+        }
+      } else {
+        setUserName('');
+      }
+    };
+
+    fetchUserName();
+  }, [user]);
 
   const handleSignOut = async () => {
     await signOut();
@@ -66,8 +96,11 @@ export const Header: React.FC = () => {
             {/* User Menu */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon">
+                <Button variant="ghost" className="flex items-center gap-2">
                   <User className="h-5 w-5" />
+                  {user && userName && (
+                    <span className="hidden sm:inline text-sm">{userName}</span>
+                  )}
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
