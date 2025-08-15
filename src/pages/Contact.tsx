@@ -1,87 +1,8 @@
-import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { toast } from '@/components/ui/use-toast';
+import React from 'react';
+import { Card, CardContent } from '@/components/ui/card';
 import { Mail, Phone, MapPin, Clock } from 'lucide-react';
-import emailjs from '@emailjs/browser';
 
 export const Contact: React.FC = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!formData.name || !formData.email || !formData.message) {
-      toast({
-        title: "Missing Information",
-        description: "Please fill in all required fields.",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    setIsLoading(true);
-
-    try {
-      // Using EmailJS for simple client-side email sending
-      // You'll need to set up your EmailJS account and replace these IDs
-      const templateParams = {
-        from_name: formData.name,
-        from_email: formData.email,
-        subject: formData.subject || 'Contact Form Submission',
-        message: formData.message,
-        to_email: 'support@capstore.com' // Replace with your admin email
-      };
-
-      // EmailJS service - replace with your actual service ID, template ID, and public key
-      await emailjs.send(
-        'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
-        'YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
-        templateParams,
-        'YOUR_PUBLIC_KEY' // Replace with your EmailJS public key
-      );
-
-      toast({
-        title: "Message Sent!",
-        description: "Thank you for contacting us. We'll get back to you soon."
-      });
-
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
-      });
-
-    } catch (error) {
-      console.error('Error sending contact email:', error);
-      toast({
-        title: "Error",
-        description: "Failed to send message. Please try again later.",
-        variant: "destructive"
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -176,73 +97,33 @@ export const Contact: React.FC = () => {
               </div>
             </div>
 
-            {/* Contact Form */}
+            {/* Contact Information Card */}
             <Card>
-              <CardHeader>
-                <CardTitle className="text-2xl text-primary">Send us a Message</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="name">Name *</Label>
-                      <Input
-                        id="name"
-                        name="name"
-                        type="text"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        placeholder="Your full name"
-                        required
-                      />
+              <CardContent className="p-8">
+                <h2 className="text-2xl font-bold text-primary mb-6 text-center">How to Reach Us</h2>
+                <div className="space-y-6">
+                  <div className="text-center">
+                    <p className="text-muted-foreground mb-4">
+                      We'd love to hear from you! Feel free to reach out through any of the following methods:
+                    </p>
+                  </div>
+                  
+                  <div className="grid gap-4">
+                    <div className="flex items-center justify-center space-x-3 p-4 bg-primary/5 rounded-lg">
+                      <Mail className="h-5 w-5 text-primary" />
+                      <span className="font-medium">Email us directly at: support@capstore.com</span>
                     </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="email">Email *</Label>
-                      <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        placeholder="your.email@example.com"
-                        required
-                      />
+                    
+                    <div className="flex items-center justify-center space-x-3 p-4 bg-primary/5 rounded-lg">
+                      <Phone className="h-5 w-5 text-primary" />
+                      <span className="font-medium">Call us at: +1 (555) 123-4567</span>
                     </div>
                   </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="subject">Subject</Label>
-                    <Input
-                      id="subject"
-                      name="subject"
-                      type="text"
-                      value={formData.subject}
-                      onChange={handleInputChange}
-                      placeholder="What's this about?"
-                    />
+                  
+                  <div className="text-center text-sm text-muted-foreground mt-6">
+                    <p>We typically respond within 24 hours during business days.</p>
                   </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="message">Message *</Label>
-                    <Textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      placeholder="Tell us how we can help you..."
-                      className="min-h-[120px]"
-                      required
-                    />
-                  </div>
-
-                  <Button 
-                    type="submit" 
-                    className="w-full"
-                    disabled={isLoading}
-                  >
-                    {isLoading ? 'Sending...' : 'Send Message'}
-                  </Button>
-                </form>
+                </div>
               </CardContent>
             </Card>
           </div>
