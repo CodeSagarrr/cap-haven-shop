@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from '@/components/ui/use-toast';
 import { Mail, Phone, MapPin, Clock } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
+import emailjs from '@emailjs/browser';
 
 export const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -40,18 +40,23 @@ export const Contact: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const { error } = await supabase.functions.invoke('send-contact-email', {
-        body: {
-          name: formData.name,
-          email: formData.email,
-          subject: formData.subject || 'Contact Form Submission',
-          message: formData.message
-        }
-      });
+      // Using EmailJS for simple client-side email sending
+      // You'll need to set up your EmailJS account and replace these IDs
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject || 'Contact Form Submission',
+        message: formData.message,
+        to_email: 'support@capstore.com' // Replace with your admin email
+      };
 
-      if (error) {
-        throw error;
-      }
+      // EmailJS service - replace with your actual service ID, template ID, and public key
+      await emailjs.send(
+        'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
+        'YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
+        templateParams,
+        'YOUR_PUBLIC_KEY' // Replace with your EmailJS public key
+      );
 
       toast({
         title: "Message Sent!",
