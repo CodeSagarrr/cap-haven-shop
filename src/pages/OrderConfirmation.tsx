@@ -27,6 +27,7 @@ export const OrderConfirmation = () => {
 
   const orderId = searchParams.get("order_id");
   const paymentId = searchParams.get("payment_id");
+  const paymentMethod = searchParams.get("payment_method");
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -121,7 +122,10 @@ export const OrderConfirmation = () => {
             Order Confirmed!
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Thank you for your purchase! Your order has been successfully placed and payment confirmed.
+            {paymentMethod === 'cod' 
+              ? 'Your COD order has been successfully placed! Pay when your order is delivered.'
+              : 'Thank you for your purchase! Your order has been successfully placed and payment confirmed.'
+            }
           </p>
         </div>
 
@@ -143,8 +147,16 @@ export const OrderConfirmation = () => {
                 <div className="flex justify-between items-center">
                   <span className="text-muted-foreground">Status:</span>
                   <Badge variant={order.status === "paid" ? "default" : "secondary"}>
-                    {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                    {order.status === 'paid' ? 'Paid' : paymentMethod === 'cod' ? 'COD - Pay on Delivery' : 'Pending'}
                   </Badge>
+                </div>
+
+                <div className="flex justify-between items-center">
+                  <span className="text-muted-foreground">Payment Method:</span>
+                  <span className="flex items-center gap-2">
+                    <CreditCard className="h-4 w-4" />
+                    {paymentMethod === 'cod' ? 'Cash on Delivery' : 'Razorpay'}
+                  </span>
                 </div>
 
                 <div className="flex justify-between items-center">
@@ -215,10 +227,7 @@ export const OrderConfirmation = () => {
               <h2 className="text-xl font-semibold mb-6">Shipping Address</h2>
               <div className="space-y-2 text-muted-foreground">
                 <p className="font-medium text-foreground">{order.shipping_address.fullName}</p>
-                <p>{order.shipping_address.addressLine1}</p>
-                {order.shipping_address.addressLine2 && (
-                  <p>{order.shipping_address.addressLine2}</p>
-                )}
+                <p>{order.shipping_address.address}</p>
                 <p>
                   {order.shipping_address.city}, {order.shipping_address.state} {order.shipping_address.postalCode}
                 </p>
